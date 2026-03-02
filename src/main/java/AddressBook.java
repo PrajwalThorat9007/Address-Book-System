@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AddressBook {
 
-    private Contact contact;   // Only one contact for UC2
+    private List<Contact> contactList = new ArrayList<>();
 
     public void addContact() {
 
@@ -32,10 +34,51 @@ public class AddressBook {
         System.out.println("Enter Email:");
         String email = scanner.nextLine();
 
-        contact = new Contact(firstName, lastName, address,
+        Contact contact = new Contact(firstName, lastName, address,
                 city, state, zip, phoneNumber, email);
 
+        contactList.add(contact);
+
         System.out.println("\nContact Added Successfully!");
-        System.out.println(contact);
+    }
+
+    public void editContact(String name) {
+
+        Scanner scanner = new Scanner(System.in);
+        boolean found = false;
+
+        for (Contact contact : contactList) {
+
+            if (contact.getFirstName().equalsIgnoreCase(name)) {
+
+                System.out.println("Editing Contact: " + name);
+
+                System.out.println("Enter New Address:");
+                contact.setAddress(scanner.nextLine());
+
+                System.out.println("Enter New City:");
+                contact.setCity(scanner.nextLine());
+
+                System.out.println("Enter New State:");
+                contact.setState(scanner.nextLine());
+
+                System.out.println("Enter New Zip:");
+                contact.setZip(scanner.nextLine());
+
+                System.out.println("Enter New Phone Number:");
+                contact.setPhoneNumber(scanner.nextLine());
+
+                System.out.println("Enter New Email:");
+                contact.setEmail(scanner.nextLine());
+
+                System.out.println("Contact Updated Successfully!");
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Contact Not Found!");
+        }
     }
 }
