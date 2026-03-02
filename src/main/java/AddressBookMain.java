@@ -12,8 +12,11 @@ public class AddressBookMain {
         addressBook.addContact();
 
         System.out.println("Enter name to edit:");
-        String name = scanner.nextLine();
+        String editName = scanner.nextLine();
+        addressBook.editContact(editName);
 
-        addressBook.editContact(name);
+        System.out.println("Enter name to delete:");
+        String deleteName = scanner.nextLine();
+        addressBook.deleteContact(deleteName);
     }
 }
