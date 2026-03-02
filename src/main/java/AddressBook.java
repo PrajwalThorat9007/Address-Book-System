@@ -94,4 +94,14 @@ public class AddressBook {
             System.out.println("Contact Not Found!");
         }
     }
+    public void displayAllContacts() {
+        if (contactList.isEmpty()) {
+            System.out.println("No Contacts Available.");
+        } else {
+            for (Contact contact : contactList) {
+                System.out.println(contact);
+                System.out.println("----------------------");
+            }
+        }
+    }
 }
