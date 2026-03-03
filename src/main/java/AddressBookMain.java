@@ -1,6 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
 
@@ -53,7 +56,7 @@ public class AddressBookMain {
                     break;
 
                 case 4:
-                    searchByCityOrState(addressBookMap, scanner);
+                    viewPersonsByCityOrState(addressBookMap, scanner);
                     break;
 
                 case 5:
@@ -65,6 +68,28 @@ public class AddressBookMain {
                     System.out.println("Invalid Choice!");
             }
         }
+    }
+    private static void viewPersonsByCityOrState(Map<String, AddressBook> addressBookMap, Scanner scanner) {
+
+        System.out.println("View By:");
+        System.out.println("1. City");
+        System.out.println("2. State");
+
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        Map<String, List<Contact>> groupedData =
+                addressBookMap.values().stream()
+                        .flatMap(book -> book.getContacts().stream())
+                        .collect(Collectors.groupingBy(contact ->
+                                (choice == 1)
+                                        ? contact.getCity()
+                                        : contact.getState()
+                        ));
+
+        groupedData.forEach((key, contacts) -> {
+            System.out.println("\n" + key + ":");
+            contacts.forEach(contact -> System.out.println(contact));
+        });
     }
 
     private static void searchByCityOrState(Map<String, AddressBook> addressBookMap, Scanner scanner) {
