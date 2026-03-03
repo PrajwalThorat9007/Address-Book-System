@@ -34,12 +34,18 @@ public class AddressBook {
         System.out.println("Enter Email:");
         String email = scanner.nextLine();
 
-        Contact contact = new Contact(firstName, lastName, address,
+        Contact newContact = new Contact(firstName, lastName, address,
                 city, state, zip, phoneNumber, email);
 
-        contactList.add(contact);
+        boolean isDuplicate = contactList.stream()
+                .anyMatch(contact -> contact.equals(newContact));
 
-        System.out.println("\nContact Added Successfully!");
+        if (isDuplicate) {
+            System.out.println("Duplicate Contact Found! Entry Not Added.");
+        } else {
+            contactList.add(newContact);
+            System.out.println("Contact Added Successfully!");
+        }
     }
 
     public void editContact(String name) {
