@@ -4,6 +4,8 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class AddressBookMain {
 
@@ -60,6 +62,10 @@ public class AddressBookMain {
                     break;
 
                 case 5:
+                    countByCityOrState(addressBookMap, scanner);
+                    break;
+
+                case 6:
                     exitSystem = true;
                     System.out.println("Exiting System...");
                     break;
@@ -69,6 +75,30 @@ public class AddressBookMain {
             }
         }
     }
+    private static void countByCityOrState(Map<String, AddressBook> addressBookMap, Scanner scanner) {
+
+        System.out.println("Count By:");
+        System.out.println("1. City");
+        System.out.println("2. State");
+
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        Map<String, Long> countData =
+                addressBookMap.values().stream()
+                        .flatMap(book -> book.getContacts().stream())
+                        .collect(Collectors.groupingBy(
+                                contact -> (choice == 1)
+                                        ? contact.getCity()
+                                        : contact.getState(),
+                                Collectors.counting()
+                        ));
+
+        System.out.println("\nCount Result:");
+
+        countData.forEach((key, count) ->
+                System.out.println(key + " : " + count));
+    }
+
     private static void viewPersonsByCityOrState(Map<String, AddressBook> addressBookMap, Scanner scanner) {
 
         System.out.println("View By:");
