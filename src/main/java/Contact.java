@@ -80,4 +80,12 @@ public class Contact {
     public int hashCode() {
         return Objects.hash(firstName.toLowerCase(), lastName.toLowerCase());
     }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getState() {
+        return state;
+    }
 }

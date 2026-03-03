@@ -52,10 +52,42 @@ public class AddressBookMain {
                     System.out.println("Exiting System...");
                     break;
 
+                case 4:
+                    searchByCityOrState(addressBookMap, scanner);
+                    break;
+
+                case 5:
+                    exitSystem = true;
+                    System.out.println("Exiting System...");
+                    break;
+
                 default:
                     System.out.println("Invalid Choice!");
             }
         }
+    }
+
+    private static void searchByCityOrState(Map<String, AddressBook> addressBookMap, Scanner scanner) {
+
+        System.out.println("Search By:");
+        System.out.println("1. City");
+        System.out.println("2. State");
+
+        int choice = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Enter value:");
+        String value = scanner.nextLine();
+
+        addressBookMap.values().stream()
+                .flatMap(addressBook -> addressBook.getContacts().stream())
+                .filter(contact ->
+                        (choice == 1 && contact.getCity().equalsIgnoreCase(value)) ||
+                                (choice == 2 && contact.getState().equalsIgnoreCase(value))
+                )
+                .forEach(contact -> {
+                    System.out.println(contact);
+                    System.out.println("----------------------");
+                });
     }
 
     private static void manageAddressBook(AddressBook addressBook, Scanner scanner) {
