@@ -115,6 +115,38 @@ public class AddressBook {
         return contactList;
     }
 
+    public void sortContactsByField(int choice) {
+
+        if (contactList.isEmpty()) {
+            System.out.println("No Contacts Available.");
+            return;
+        }
+
+        Comparator<Contact> comparator;
+
+        switch (choice) {
+            case 1:
+                comparator = Comparator.comparing(Contact::getCity, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case 2:
+                comparator = Comparator.comparing(Contact::getState, String.CASE_INSENSITIVE_ORDER);
+                break;
+            case 3:
+                comparator = Comparator.comparing(Contact::getZip);
+                break;
+            default:
+                System.out.println("Invalid Choice!");
+                return;
+        }
+
+        contactList.stream()
+                .sorted(comparator)
+                .forEach(contact -> {
+                    System.out.println(contact);
+                    System.out.println("----------------------");
+                });
+    }
+
     public void sortContactsByName() {
 
         if (contactList.isEmpty()) {

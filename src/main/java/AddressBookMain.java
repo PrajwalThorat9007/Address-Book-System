@@ -184,6 +184,20 @@ public class AddressBookMain {
                     exitBook = true;
                     break;
 
+                case 6:
+                    System.out.println("Sort By:");
+                    System.out.println("1. City");
+                    System.out.println("2. State");
+                    System.out.println("3. Zip");
+
+                    int sortChoice = Integer.parseInt(scanner.nextLine());
+                    addressBook.sortContactsByField(sortChoice);
+                    break;
+
+                case 7:
+                    exitBook = true;
+                    break;
+
                 default:
                     System.out.println("Invalid Choice!");
             }
