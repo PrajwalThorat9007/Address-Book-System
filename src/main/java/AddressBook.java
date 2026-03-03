@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Comparator;
 
 public class AddressBook {
 
@@ -112,5 +113,22 @@ public class AddressBook {
     }
     public List<Contact> getContacts() {
         return contactList;
+    }
+
+    public void sortContactsByName() {
+
+        if (contactList.isEmpty()) {
+            System.out.println("No Contacts Available.");
+            return;
+        }
+
+        contactList.stream()
+                .sorted(Comparator
+                        .comparing(Contact::getFirstName, String.CASE_INSENSITIVE_ORDER)
+                        .thenComparing(Contact::getLastName, String.CASE_INSENSITIVE_ORDER))
+                .forEach(contact -> {
+                    System.out.println(contact);
+                    System.out.println("----------------------");
+                });
     }
 }
